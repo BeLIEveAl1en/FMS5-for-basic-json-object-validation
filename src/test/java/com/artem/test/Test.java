@@ -24,17 +24,43 @@ public class Test {
 
     @org.junit.Test
     public void shouldPassWithWhitespace(){
-        shouldPass("\" name \" : \" Вася \",");
+        shouldPass("{\" name \" : \" Вася \"}");
     }
 
     @org.junit.Test
-    public void shouldPassWithoutWhitespace(){
-        shouldPass("\"name\":\"Вася\",");
+    public void shouldPassWithInteger(){
+        shouldPass("{\" name \" : 55}");
+    }
+
+    @org.junit.Test
+    public void shouldPassWithStringTrue(){
+        shouldPass("{\"name\":true}");
+    }
+
+    @org.junit.Test
+    public void shouldPassWithStringFalse(){
+        shouldPass("{\"name\":true}");
+    }
+
+    @org.junit.Test
+    public void shouldPassWithNull(){
+        shouldPass("{\"name\":true}");
+    }
+
+    @org.junit.Test
+    public void shouldPassWithTwoObj(){
+        shouldPass("{\"name\":true," +
+                       "\"lastName\":\"fff\"}");
     }
 
     @org.junit.Test
     public void shouldFailWithExtraLetter(){
-        shouldFail("\"name\"f:\"Вася\",");
+        shouldFail("{\"name\"f:\"Вася\"}");
+    }
+
+    @org.junit.Test
+    public void shouldFailWithTwoColon(){
+        shouldFail("{\"name\"::\"Вася\"}");
     }
 }
 
