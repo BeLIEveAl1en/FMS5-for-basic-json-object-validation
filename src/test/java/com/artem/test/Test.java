@@ -38,14 +38,20 @@ public class Test {
     }
 
     @org.junit.Test
-    public void shouldPassWithStringFalse(){
-        shouldPass("{\"name\":true}");
+    public void shouldPassWithStringNull(){
+        shouldPass("{\"name\":null}");
     }
 
     @org.junit.Test
-    public void shouldPassWithNull(){
-        shouldPass("{\"name\":true}");
+    public void shouldPassWithStringFalse(){
+        shouldPass("{\"name\":false}");
     }
+
+    @org.junit.Test
+    public void shouldPassWithStringBrackets(){
+        shouldPass("{\"name\":[],\"name\":{}}");
+    }
+
 
     @org.junit.Test
     public void shouldPassWithTwoObj(){
@@ -61,6 +67,11 @@ public class Test {
     @org.junit.Test
     public void shouldFailWithTwoColon(){
         shouldFail("{\"name\"::\"Вася\"}");
+    }
+
+    @org.junit.Test
+    public void shouldFailWithExtraQuotes(){
+        shouldFail("{\"\"name\"\":\"Вася\"}");
     }
 }
 

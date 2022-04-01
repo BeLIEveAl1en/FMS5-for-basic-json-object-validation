@@ -78,9 +78,15 @@ public class StateMachine {
                 else if (Character.isDigit(symbol)){
                     state.setState(7);
                 }
-                else if (symbol == ':' && colonBuf){ //TODO : Add chek for colon (:)
+                else if (symbol == ':' && colonBuf){
                     colonBuf = false;
                     state.setState(2);
+                }
+                else if (symbol == '{'){
+                    state.setState(10);
+                }
+                else if (symbol == '['){
+                    state.setState(11);
                 }
                 else if(!Character.isWhitespace(symbol)){
                     return false;
@@ -160,6 +166,24 @@ public class StateMachine {
                 }
                 else if(symbol == '}'){
                     counterOfBrackets = true;
+                }
+                else {
+                    return false;
+                }
+                return true;
+
+            case 10 :
+                if (symbol == '}'){
+                    state.setState(8);
+                }
+                else {
+                    return false;
+                }
+                return true;
+
+            case 11 :
+                if (symbol == ']'){
+                    state.setState(8);
                 }
                 else {
                     return false;
