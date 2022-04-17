@@ -56,7 +56,8 @@ public class Test {
     @org.junit.Test
     public void shouldPassWithTwoObj(){
         shouldPass("{\"name\":true," +
-                       "\"lastName\":\"fff\"}");
+                       "\"lastName\":\"fff\"" +
+                        "}");
     }
 
     @org.junit.Test
