@@ -29,7 +29,7 @@ public class Test {
 
     @org.junit.Test
     public void shouldPassWithInteger(){
-        shouldPass("{\" name \" : 55}");
+        shouldPass("{\" name \" : 55.5}");
     }
 
     @org.junit.Test
@@ -49,7 +49,7 @@ public class Test {
 
     @org.junit.Test
     public void shouldPassWithStringBrackets(){
-        shouldPass("{\"name\":[],\"name\":{}}");
+        shouldPass("{\"name\":[thfdth],\"name\":{drgdrg}}");
     }
 
 

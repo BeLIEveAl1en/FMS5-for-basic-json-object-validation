@@ -6,7 +6,8 @@ public class StateMachine {
     private int position = 0;
     private int counterOfQuotes = 0;
     private boolean counterOfBrackets = true;
-    boolean colonBuf = true;
+    private boolean colonBuf = true;
+    private boolean dotBuf = true;
     private final State state = new State(0);
 
     public ValidationResult validate(String inputStr){
@@ -25,7 +26,7 @@ public class StateMachine {
         return result;
     }
 
-    public boolean validationSymbol() {
+    private boolean validationSymbol() {
         char symbol = str[position];
         switch (state.getState()){
             case 0 :
@@ -76,6 +77,7 @@ public class StateMachine {
                     state.setState(6);
                 }
                 else if (Character.isDigit(symbol)){
+                    dotBuf = true;
                     state.setState(7);
                 }
                 else if (symbol == ':' && colonBuf){
@@ -92,6 +94,7 @@ public class StateMachine {
                     return false;
                 }
                 return true;
+
             case 3 :
                 if(Character.isAlphabetic(symbol) || Character.isWhitespace(symbol) || Character.isDigit(symbol)){
                     state.setState(3);
@@ -161,6 +164,9 @@ public class StateMachine {
                 if (Character.isDigit(symbol)){
                     state.setState(7);
                 }
+                else if(symbol == '.' && dotBuf){
+                    dotBuf = false;
+                }
                 else if(symbol == ','){
                     state.setState(1);
                 }
@@ -176,17 +182,11 @@ public class StateMachine {
                 if (symbol == '}'){
                     state.setState(8);
                 }
-                else {
-                    return false;
-                }
                 return true;
 
             case 11 :
                 if (symbol == ']'){
                     state.setState(8);
-                }
-                else {
-                    return false;
                 }
                 return true;
 
