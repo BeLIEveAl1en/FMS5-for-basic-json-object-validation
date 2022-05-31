@@ -5,9 +5,9 @@ public class StateMachine {
     private int counter = 0;
     private int position = 0;
     private int counterOfQuotes = 0;
-    private boolean counterOfBrackets = true;
-    private boolean colonBuf = true;
-    private boolean dotBuf = true;
+    private boolean flagOfBrackets = true;
+    private boolean flagOfBuf = true;
+    private boolean flagOfDot = true;
     private final State state = new State(0);
 
     public ValidationResult validate(String inputStr){
@@ -17,7 +17,7 @@ public class StateMachine {
             if (!validationSymbol())
                 return ValidationResult.unexpectedSymbol(str[position], position);
         }
-        if (counterOfBrackets && counterOfQuotes == 0 && counter == 0){
+        if (flagOfBrackets && counterOfQuotes == 0 && counter == 0){
             result = ValidationResult.valid();
         }
         else {
@@ -30,8 +30,8 @@ public class StateMachine {
         char symbol = str[position];
         switch (state.getState()){
             case 0 :
-                if(symbol == '{' && counterOfBrackets){
-                    counterOfBrackets = false;
+                if(symbol == '{' && flagOfBrackets){
+                    flagOfBrackets = false;
                     state.setState(9);
                 }
                 else {
@@ -77,11 +77,11 @@ public class StateMachine {
                     state.setState(6);
                 }
                 else if (Character.isDigit(symbol)){
-                    dotBuf = true;
+                    flagOfDot = true;
                     state.setState(7);
                 }
-                else if (symbol == ':' && colonBuf){
-                    colonBuf = false;
+                else if (symbol == ':' && flagOfBuf){
+                    flagOfBuf = false;
                     state.setState(2);
                 }
                 else if (symbol == '{'){
@@ -164,15 +164,15 @@ public class StateMachine {
                 if (Character.isDigit(symbol)){
                     state.setState(7);
                 }
-                else if(symbol == '.' && dotBuf){
-                    dotBuf = false;
+                else if(symbol == '.' && flagOfDot){
+                    flagOfDot = false;
                 }
                 else if(symbol == ','){
-                    colonBuf = true;
+                    flagOfBuf = true;
                     state.setState(9);
                 }
                 else if(symbol == '}'){
-                    counterOfBrackets = true;
+                    flagOfBrackets = true;
                 }
                 else {
                     return false;
@@ -192,12 +192,12 @@ public class StateMachine {
                 return true;
 
             case 8:
-                if (symbol == '}' && !counterOfBrackets){
-                    counterOfBrackets = true;
+                if (symbol == '}' && !flagOfBrackets){
+                    flagOfBrackets = true;
                     state.setState(4);
                 }
                 else if(symbol == ','){
-                    colonBuf = true;
+                    flagOfBuf = true;
                     state.setState(9);
                 }
                 else {
