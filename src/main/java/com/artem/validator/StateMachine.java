@@ -44,7 +44,7 @@ public class StateMachine {
                     counterOfQuotes++;
                     state.setState(1);
                 }
-                else {
+                else if(!Character.isWhitespace(symbol)){
                     return false;
                 }
                 return true;
@@ -168,7 +168,8 @@ public class StateMachine {
                     dotBuf = false;
                 }
                 else if(symbol == ','){
-                    state.setState(1);
+                    colonBuf = true;
+                    state.setState(9);
                 }
                 else if(symbol == '}'){
                     counterOfBrackets = true;

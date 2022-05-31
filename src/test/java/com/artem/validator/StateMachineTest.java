@@ -1,10 +1,9 @@
-package com.artem.test;
+package com.artem.validator;
 
-import com.artem.validator.StateMachine;
-import com.artem.validator.ValidationResult;
 import org.junit.Assert;
+import org.junit.Test;
 
-public class Test {
+public class StateMachineTest {
 
     public void shouldPass(String str){
         StateMachine stateMachine = new StateMachine();
@@ -22,55 +21,54 @@ public class Test {
         Assert.assertFalse(result.getComment(), result.isValid());
     }
 
-    @org.junit.Test
+    @Test
     public void shouldPassWithWhitespace(){
         shouldPass("{\" name \" : \" Вася \"}");
     }
 
-    @org.junit.Test
+    @Test
     public void shouldPassWithInteger(){
-        shouldPass("{\" name \" : 55.5}");
+        shouldPass("{\" name \" : 55.5, \"old\" : 34}");
     }
 
-    @org.junit.Test
+    @Test
     public void shouldPassWithStringTrue(){
         shouldPass("{\"name\":true}");
     }
 
-    @org.junit.Test
+    @Test
     public void shouldPassWithStringNull(){
         shouldPass("{\"name\":null}");
     }
 
-    @org.junit.Test
+    @Test
     public void shouldPassWithStringFalse(){
         shouldPass("{\"name\":false}");
     }
 
-    @org.junit.Test
+    @Test
     public void shouldPassWithStringBrackets(){
         shouldPass("{\"name\":[thfdth],\"name\":{drgdrg}}");
     }
 
-
-    @org.junit.Test
+    @Test
     public void shouldPassWithTwoObj(){
         shouldPass("{\"name\":true," +
                        "\"lastName\":\"fff\"" +
                         "}");
     }
 
-    @org.junit.Test
+    @Test
     public void shouldFailWithExtraLetter(){
         shouldFail("{\"name\"f:\"Вася\"}");
     }
 
-    @org.junit.Test
+    @Test
     public void shouldFailWithTwoColon(){
         shouldFail("{\"name\"::\"Вася\"}");
     }
 
-    @org.junit.Test
+    @Test
     public void shouldFailWithExtraQuotes(){
         shouldFail("{\"\"name\"\":\"Вася\"}");
     }
