@@ -72,5 +72,10 @@ public class StateMachineTest {
     public void shouldFailWithExtraQuotes(){
         shouldFail("{\"\"name\"\":\"Вася\"}");
     }
+
+    @Test
+    public void shouldFailWithUnexpectedEOF(){
+        shouldFail("{\"name\":\"Вася\"");
+    }
 }
 
